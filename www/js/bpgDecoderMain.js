@@ -30,7 +30,6 @@ bestimg.factory('debounce', ['$timeout', function($timeout) {
         var timeout;
 
         function _debounce() {
-            console.log('called');
             $timeout.cancel(timeout);
             timeout = $timeout(fn, debounceTime);
         };
@@ -363,7 +362,6 @@ bestimg.directive('bestimg', ['$q', '$window', '$rootScope', 'canvas', 'webWorke
 
                     function _responseMain() {
                         var scrollBottom = containerSize.scrollBottom($container);
-                        DPQ.sort(watcher, 'offsetTop');
                         loop('off');
                         loop();
 
@@ -375,12 +373,12 @@ bestimg.directive('bestimg', ['$q', '$window', '$rootScope', 'canvas', 'webWorke
                                 if (mode === 'off') {
                                     if (watcher[i].visited === true) counter++;
                                 } else {
-                                    if (watcher[i].visited !== true) {
-                                        if (scrollBottom > watcher[i].offsetTop) {
+                                    if (scrollBottom < watcher[i].offsetTop) {
+                                        return;
+                                    } else {
+                                        if (watcher[i].visited !== true) {
                                             loadImg(watcher[i].element, watcher[i].attrs);
                                             watcher[i].visited = true;
-                                        } else {
-                                            return;
                                         }
                                     }
                                 }
@@ -401,6 +399,7 @@ bestimg.directive('bestimg', ['$q', '$window', '$rootScope', 'canvas', 'webWorke
                             attrs: attrs
                         };
                         watcher.push(dataBox);
+                        DPQ.sort(watcher, 'offsetTop');
                     };
                     _init($container);
                     // 下面这句需要$container ready ,注意顺序
