@@ -2,7 +2,7 @@ require.config({
     enforceDefine: false,
     paths: {
         'ionic': '/js/lib/ionic.bundle.min',
-        // 'ionic': '/js/lib/ionic.debug',
+        // 'ionic': '/js/lib/ionic',
         'yibao': '/js/yibao.min',
         'routes': '/js/routes.min'
     },

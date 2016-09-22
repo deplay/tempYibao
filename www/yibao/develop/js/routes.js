@@ -1,19 +1,39 @@
 angular.module('routes', [])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
+
         function loadCss(css) {
             return ['$q', '$rootScope', function($q, $rootScope) {
-                var deferred = $q.defer();
+                console.log('执行');
                 var dependencies = [];
                 if (Array.isArray(css)) {
                     dependencies = css;
                 } else {
                     dependencies.push(css);
                 }
-                deferred.resolve();
-                return deferred.promise;
+                var proArr = []
+                angular.forEach(dependencies, function(v, k, o) {
+                        var deferred = $q.defer();
+                        var el = document.createElement('link');
+                        el.onload = el['onreadystatechange'] = function(e) {
+                            if (el['readyState'] && !/^c|loade/.test(el['readyState'])) return;
+                            el.onload = el['onreadystatechange'] = null;
+                            deferred.resolve();
+                        };
+                        el.onerror = function() {
+                            deferred.reject(new Error('Unable to load ' + path));
+                        };
+                        el.type = 'text/css';
+                        el.rel = 'stylesheet';
+                        el.href = v;
+                        var insertBeforeElem = document.head.lastChild;
+                        insertBeforeElem.parentNode.insertBefore(el, insertBeforeElem);
+                        proArr.push(deferred.promise);
+                    })
+                    // console.log(proArr);
+                return $q.all(proArr);
             }];
-        }
+        };
 
         function loadTpl(tpl) {
             return ['$q', '$rootScope', '$templateRequest', function($q, $rootScope, $templateRequest) {
@@ -56,7 +76,8 @@ angular.module('routes', [])
                 url: '/productList',
                 templateProvider: loadTpl(['\\html\\product\\productList.min.html']),
                 resolve: {
-                    js: asyncLoad(['controller/productListCtrl'])
+                    js: asyncLoad(['controller/product/productListCtrl.min']),
+                    css: loadCss('\\css\\product\\productList.min.css')
                 }
             })
 

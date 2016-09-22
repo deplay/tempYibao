@@ -7,6 +7,7 @@ var iconv = require('iconv-lite');
 var walk = require('walk');
 var fs = require('fs');
 var compressor = require('yuicompressor');
+var less = require('less');
 
 var fileNameArr = __filename.split('\\');
 var compilerPath = fileNameArr.slice(0, -1).join('\\');
@@ -115,6 +116,7 @@ function htmlHandle(dFP, pFP) {
 function jsHandle(dFP, pFP) {
     if (dFP.indexOf('.min.js')!==-1){
         otherFiles(dFP, pFP);
+        return
     }
     var originalJsBuffer = fs.readFileSync(dFP);
     compressor.compress(originalJsBuffer.toString(), {
@@ -130,6 +132,26 @@ function jsHandle(dFP, pFP) {
     });
 }
 
+// css 处理函数
+function cssHandle(dFP, pFP) {
+    if (dFP.indexOf('.min.css')!==-1){
+        otherFiles(dFP, pFP);
+        return
+    }
+    var originalCssBuffer = fs.readFileSync(dFP);
+    less.render(originalCssBuffer.toString(), {
+        filename: dFP, // Specify a filename, for better error messages
+        compress: true // Minify CSS output
+    }, function(error, output) {
+        if (error) {
+            console.log(error);
+            return;
+        }
+        // console.log(output.css);
+        if (output.css) fs.writeFileSync(minName(pFP), output.css);
+    });
+}
+
 
 // 开始处理
 var walker = walk.walk(devPath, { followLinks: false });
@@ -142,7 +164,8 @@ walker.on('file', function(root, stat, next) {
     if (mkdirsSync(tempPdtPath)) {
         var handleMap = {
             html: htmlHandle,
-            js: jsHandle
+            js: jsHandle,
+            css:cssHandle
         };
         // 处理
         (handleMap[fileType(stat.name)] || otherFiles)(devFilePath, pdtFilePath);
@@ -153,37 +176,3 @@ walker.on('file', function(root, stat, next) {
     }
 
 });
-
-
-
-// var htmlPath = path + '\\dependencies\\html';
-// var walker = walk.walk(htmlPath, { followLinks: false });
-// walker.on('file', function(root, stat, next) {
-//     if ((stat.name.indexOf('.min') > -1) || (stat.name.indexOf('.html') === -1)) {
-//         next();
-//         return;
-//     }
-//     var full = root + '\\' + stat.name;
-//     var cutter = path + '\\';
-//     var minNm = minName(full);
-//     var key = relativePath(minNm, cutter); //取到相对路径作key
-//     // 包装成可用ng-template标签
-//     var originalHtmlBuffer = fs.readFileSync(full);
-//     var header = '<script type="text/ng-template" id="' + key + '">';
-//     var headerBuffer = new Buffer(header, encoding = 'utf8');
-//     var footer = '</script>';
-//     var footerBuffer = new Buffer(footer, encoding = 'utf8');
-//     var all = Buffer.concat([headerBuffer, originalHtmlBuffer, footerBuffer]);
-//     var COMMENT_PSEUDO_COMMENT_OR_LT_BANG = new RegExp(
-//         '<!--[\\s\\S]*?(?:-->)?' + '<!---+>?' // A comment with no body
-//         + '|<!(?![dD][oO][cC][tT][yY][pP][eE]|\\[CDATA\\[)[^>]*>?' + '|<[?][^>]*>?', // A pseudo-comment
-//         'mg');
-//     var noWhiteSpaces = all.toString()
-//         .replace(/[\r\n]/g, '')
-//         .replace(/[\t ]+\</g, '<')
-//         .replace(/\>[\t ]+\</g, '><')
-//         .replace(/\>[\t ]+$/g, '>')
-//         .replace(COMMENT_PSEUDO_COMMENT_OR_LT_BANG, '');
-//     fs.writeFileSync(minNm, noWhiteSpaces);
-//     next();
-// });
