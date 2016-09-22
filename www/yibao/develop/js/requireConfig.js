@@ -1,10 +1,10 @@
 require.config({
     enforceDefine: false,
     paths: {
-        // 'ionic': '/js/lib/ionic.bundle.min',
-        'ionic': '/js/lib/ionic.debug',
-        'yibao': '/js/yibao',
-        'routes': '/js/routes'
+        'ionic': '/js/lib/ionic.bundle.min',
+        // 'ionic': '/js/lib/ionic.debug',
+        'yibao': '/js/yibao.min',
+        'routes': '/js/routes.min'
     },
     shim: {
         'ionic': {
