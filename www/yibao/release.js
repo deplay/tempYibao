@@ -114,7 +114,6 @@ function htmlHandle(dFP, pFP) {
 // js 处理函数
 function jsHandle(dFP, pFP) {
     if (dFP.indexOf('.min.js')!==-1){
-        // console.log(dFP);
         otherFiles(dFP, pFP);
     }
     var originalJsBuffer = fs.readFileSync(dFP);
