@@ -1,30 +1,27 @@
-console.log('执行1');
-define(['yibao', 'userService'], function(yibao, userService) {
+define(['yibao'], function(yibao) {
     console.log('执行2');
-    yibao.service('$productListService', ['$http', '$getUrl', function($http, $getUrl) {
+    yibao.service('$productListService', ['$q', '$http', '$getUrl', function($q, $http, $getUrl) {
         console.log('service');
-        this.loadData = function() {
-            console.log($getUrl('productList'));
-        };
-
-        this.getClassifyList = function(classifyID, classifyAgainSearch, pageIndex, sorts) { //分类编码以及分类再搜索
+        this.loadData = function(id, again, pageIndex, sort) {
             var deferred = $q.defer();
-            var url = $makeUrlService('classifySearch');
-            url += classifyID;
+            var url = $getUrl('productList') +id;
             var paras = {
-                //:relevance:productType:TUANGOU:productType:YXDJ
-                // q: classifyAgainSearch + ":relevance:isYXDJ:true",
-                q: classifyAgainSearch + ":relevance:productType:TUANGOU:productType:YXDJ",
+                q: again + ':relevance:productType:TUANGOU:productType:YXDJ',
                 page: pageIndex,
-                sort: sorts,
-                channe: "hxyxt"
+                sort: sort,
+                channe: 'hxyxt'
             }
-            url = $makeUrlService(url, paras);
-            $http.get(url).success(function(datas) {
-                deferred.resolve(datas);
-            }).error(deferred.reject);
+            console.log(url);
+            $http({
+                url: url,
+                method: 'GET',
+                params: paras
+            }).then(function(res) {
+                deferred.resolve(res);
+            }, function(err) {
+                deferred.reject(err);
+            });
             return deferred.promise;
         };
-
     }])
 });

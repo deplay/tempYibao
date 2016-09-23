@@ -1,5 +1,5 @@
 define(function() {
-    var yb = angular.module('yibao', ['ionic', 'yibaoCommon', 'routes']);
+    var yb = angular.module('yibao', ['ionic', 'lazyImg', 'yibaoCommon', 'routes']);
     yb.config(function($controllerProvider, $compileProvider, $filterProvider, $provide, $ionicConfigProvider, $httpProvider) {
         $httpProvider.defaults.cache = false;
         yb.controller = $controllerProvider.register;
@@ -19,9 +19,13 @@ define(function() {
         $ionicConfigProvider.views.swipeBackEnabled(true);
         $ionicConfigProvider.views.forwardCache(false);
     });
-    yb.run(function($state) {
-        // $state.go('productList');
-    });
+    yb.run(['$state', '$rootScope', function($state, $rootScope) {
+        $rootScope.cImg = function(url, rate, md) {
+                url += '!' + Math.ceil(window.screen.width * 1.6 * rate) + 'x' + md + '.jpg';
+                return url;
+            }
+            // $state.go('productList');
+    }]);
     angular.element(document).ready(function() {
         var appEle = angular.element(document.body);
         angular.bootstrap(appEle, ['yibao']);

@@ -42,7 +42,6 @@ angular.module('routes', [])
                 } else {
                     dependencies.push(tpl);
                 }
-                // console.log($templateRequest('\\html\\product\\productList.min.html'));
                 var proArr = []
                 angular.forEach(tpl, function(v, k, o) {
                         proArr.push($templateRequest(v));
@@ -73,10 +72,10 @@ angular.module('routes', [])
         $stateProvider
             .state('productList', {
                 url: '/productList',
-                templateProvider: loadTpl(['\\html\\product\\productList.min.html']),
+                templateProvider: loadTpl(['\\html\\product\\productList.html']),
                 resolve: {
-                    js: asyncLoad(['controller/product/productListCtrl.min']),
-                    css: loadCss('\\css\\product\\productList.min.css')
+                    js: asyncLoad(['controller/product/productListCtrl']),
+                    css: loadCss('\\css\\product\\productList.css')
                 }
             })
 

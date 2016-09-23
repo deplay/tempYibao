@@ -14,7 +14,7 @@
             <i class="icon ion-android-apps"></i>
         </a>
     </div>
-    <ion-content delegate-handle="productListScroll" ng-class="{fullIonContentScroll:true}">
+    <ion-content delegate-handle="productListScroll" ng-class="{fullIonContentScroll:true}" lazy-img-container>
         <my-go-top></my-go-top>
         <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
         <div class="row height100" ng-if="false">
@@ -29,10 +29,12 @@
         </div>
         <div id="productListStyle" ng-class="{'productListStyle1':style.one,'productListStyle2':!style.one}">
             <div class="switchRow">
-                <div class="product" ng-class-even="'product2'" ng-repeat="(i,product) in productsList">
+                <div class="product" ng-class-even="'product2'" ng-repeat="(i,product) in productsList track by product.code">
                     <div class="imagetextContainer">
                         <div class="image" ui-sref="product({id:product.code})">
-                            <img ng-src="{{cImg(product.images[0].url,0.5,70)}}" alt="{{product.name}}" />
+                            <!--  -->
+                            <lazy-img lazy-src="{{product.images[0].url}}" alt="{{product.name}}" /></lazy-img>
+                            <!-- <img ng-src="{{cImg(product.images[0].url,0.5,70)}}" alt="{{product.name}}" /> -->
                         </div>
                         <div class="text">
                             <p class="productTitle" ui-sref="product({id:product.code})">{{product.name}}</p>

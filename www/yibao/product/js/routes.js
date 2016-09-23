@@ -11,5 +11,5 @@ angular.forEach(tpl,function(v,k,o){proArr.push($templateRequest(v))});return $q
 }]}function asyncLoad(data){return["$q","$rootScope",function($q,$rootScope){var deferred=$q.defer();
 var dependencies=[];if(Array.isArray(data)){dependencies=data}else{dependencies.push(data)
 }require(dependencies,function(){$rootScope.$apply(function(){deferred.resolve()})
-});return deferred.promise}]}$stateProvider.state("productList",{url:"/productList",templateProvider:loadTpl(["\\html\\product\\productList.min.html"]),resolve:{js:asyncLoad(["controller/product/productListCtrl.min"]),css:loadCss("\\css\\product\\productList.min.css")}})
+});return deferred.promise}]}$stateProvider.state("productList",{url:"/productList",templateProvider:loadTpl(["\\html\\product\\productList.html"]),resolve:{js:asyncLoad(["controller/product/productListCtrl"]),css:loadCss("\\css\\product\\productList.css")}})
 }]);
