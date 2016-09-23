@@ -4,7 +4,6 @@ angular.module('routes', [])
 
         function loadCss(css) {
             return ['$q', '$rootScope', function($q, $rootScope) {
-                console.log('执行');
                 var dependencies = [];
                 if (Array.isArray(css)) {
                     dependencies = css;

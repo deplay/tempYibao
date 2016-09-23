@@ -38,6 +38,8 @@ function fileType(fileName) {
 }
 
 function minName(originalName) {
+
+    return originalName;
     var tmpArr = originalName.split('\\');
     if (tmpArr[tmpArr.length - 1].indexOf('.min.') !== -1) {
         return originalName;
@@ -125,6 +127,7 @@ function jsHandle(dFP, pFP) {
         nomunge: true,
         'line-break': 80
     }, function(err, data, extra) {
+        if (err) console.log(err);
         fs.writeFileSync(minName(pFP), data);
         //err   If compressor encounters an error, it's stderr will be here
         //data  The compressed string, you write it out where you want it
