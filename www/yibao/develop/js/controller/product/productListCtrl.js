@@ -5,7 +5,7 @@ define(['yibao', 'productListService'], function(yibao, productListService) {
             $scope.loading = true;
             $timeout(function() { $scope.loading = false }, 10000);
         }
-        // 关闭loading并
+        // 关闭loading
         function hideLoading() {
             $scope.loading = false;
         }
@@ -29,6 +29,7 @@ define(['yibao', 'productListService'], function(yibao, productListService) {
         }
         // 页面加载首次执行
         loadData();
+        $scope.hasData=true;
         // 样式控制初始化
         $scope.style = {
             one: false,

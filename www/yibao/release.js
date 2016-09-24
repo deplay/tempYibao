@@ -81,7 +81,7 @@ function otherFiles(dFP, pFP) {
 function htmlHandle(dFP, pFP) {
     var htmlRelativePath = dFP.replace(compilerPath + '\\develop', '');
     var skipMap = { '\\index.html': true }
-    // console.log(htmlRelativePath);
+        // console.log(htmlRelativePath);
     if (skipMap[htmlRelativePath]) {
         var header = '';
         var footer = '';
@@ -116,7 +116,7 @@ function htmlHandle(dFP, pFP) {
 
 // js 处理函数
 function jsHandle(dFP, pFP) {
-    if (dFP.indexOf('.min.js')!==-1){
+    if (dFP.indexOf('.min.js') !== -1) {
         otherFiles(dFP, pFP);
         return
     }
@@ -127,7 +127,10 @@ function jsHandle(dFP, pFP) {
         nomunge: true,
         'line-break': 80
     }, function(err, data, extra) {
-        if (err) console.log(err);
+        if (err) {
+            console.log(dFP);
+            console.log(err);
+        }
         fs.writeFileSync(minName(pFP), data);
         //err   If compressor encounters an error, it's stderr will be here
         //data  The compressed string, you write it out where you want it
@@ -137,7 +140,7 @@ function jsHandle(dFP, pFP) {
 
 // css 处理函数
 function cssHandle(dFP, pFP) {
-    if (dFP.indexOf('.min.css')!==-1){
+    if (dFP.indexOf('.min.css') !== -1) {
         otherFiles(dFP, pFP);
         return
     }
@@ -168,7 +171,7 @@ walker.on('file', function(root, stat, next) {
         var handleMap = {
             html: htmlHandle,
             js: jsHandle,
-            css:cssHandle
+            css: cssHandle
         };
         // 处理
         (handleMap[fileType(stat.name)] || otherFiles)(devFilePath, pdtFilePath);

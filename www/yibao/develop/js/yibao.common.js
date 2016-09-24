@@ -37,7 +37,7 @@ yibaoCommon
             template: '<div class="myloading" ng-show="loading">' +
                 '<div class="loading-center">' +
                 '<div class="loading-center-absolute">' +
-                '<li class="ion-heart"></li>' +
+                '<i class="ion-heart"></i>' +
                 '</div>' +
                 '</div>' +
                 '</div>'
@@ -50,7 +50,7 @@ yibaoCommon
             require: '^$ionicScroll',
             link: function($scope, ele, attrs, controller) {
                 $scope.show = false;
-                var eleGoTop = '<div class="gotop" ng-click="gotop()" ng-show="show"><li class="icon ion-arrow-up-c"></li></div>';
+                var eleGoTop = '<div class="gotop" ng-click="gotop()" ng-show="show"><i class="icon ion-arrow-up-c"></i></div>';
                 if (!attrs.hideCart) eleGoTop += '<div class="gocart" ng-click="$root.goTabs(2);"><i class="ion-ios-cart" "></i></div>';
                 controller.$element.append($compile(eleGoTop)($scope));
 

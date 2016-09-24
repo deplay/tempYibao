@@ -269,7 +269,7 @@ lazyImg.factory('dPR', ['$window', function($window) {
 // 用于在启动时提供配置
 lazyImg.provider('lazyImgConfig', [function() {
     // 默认thresh
-    this.thresh = 0;
+    this.thresh = 250;
     // 默认支持对像素密度的处理
     this.supportDevicePixelRatio = true;
     // export
@@ -360,8 +360,9 @@ lazyImg.factory('loadImg', ['$q', '$timeout', 'lazyImgConfig', function($q, $tim
         var newImage = new Image();
         // 继承class和style
         var newImageWrapper = angular.element(newImage);
-        newImageWrapper.attr('class', attrs.class);
-        newImageWrapper.attr('style', attrs.style);
+        // 怪异bug
+        newImageWrapper['attr']('style', attrs['style']);
+        newImageWrapper['attr']('class', attrs['class']);
         // 根据image尺寸请求合适的图片
         $timeout(function() {
             var src = attrs['lazySrc'];

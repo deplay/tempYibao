@@ -35,23 +35,24 @@ ion-view[ng-controller=productListCtrl] ion-content {
     /*border: 1px solid #000;*/
 }
 
-.noProductBox img {
+.noProductBox i {
     position: absolute;
-    left: 70px;
-    top: 10px;
-    width: 40%;
+    left: 90px;
+    top: 0;
+    font-size:85px;
+    color:#ef473a;
 }
 
 .noProductText {
     color: #999999;
     position: absolute;
-    left: 40px;
+    left: 50px;
     top: 90px;
 }
 
 .noProductBtn {
     position: absolute;
-    left: 75px;
+    left: 85px;
     top: 120px;
     font-family: Microsoft Yahei;
     font-size: 18px;
