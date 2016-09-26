@@ -12,8 +12,16 @@
 	width: 20px;
 }
 
-.button{
-	font-size: 14px;
+.button {
+    font-size: 14px !important;
+    color: #fff;
+    background-color: #298784;
+}
+
+.btn-vcode {
+    float: right;
+    width: 95%;
+    padding: 0px;
 }
 
 .button.activated{
@@ -35,9 +43,30 @@
 
 .button-clear.button-clear {
     color: #298784;
-    margin-top: 10px;
 }
 
 .btn-reg {
     float: right;
+}
+
+.con-reg .row {
+    padding: 0px !important;
+}
+
+.con-reg .col {
+    padding: 0px !important;
+}
+
+.con-reg .item-checkbox {
+    border: none;
+    font-size: 14px !important;
+}
+
+.btn-regist {
+    margin-top: 20px !important;
+    letter-spacing: 8px;
+}
+
+.b1 {
+    color: #ea4040;
 }

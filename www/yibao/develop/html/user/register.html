@@ -1,0 +1,28 @@
+<ion-view title="快速注册" ng-controller="regCtrl">
+    <ion-content padding="true" scroll="true" class="has-header con-reg">
+        <form class="list padding" name="myForm">
+            <ion-list>
+                <label class="item item-input input-text">
+                    <i class="icon ion-ipad user-ion"></i>
+                    <input name="cellphone" type="text" ng-model="user.cellphone" required placeholder="手机号">
+                </label>
+                <label class="item item-input input-text">
+                    <i class="icon ion-locked user-ion"></i>
+                    <input name="password" type="text" ng-model="user.password" required minlength="4" maxlength="16" placeholder="登录密码">
+                </label>
+            </ion-list>
+            <div class="row">
+                <div class="col col-60">
+                    <label class="item item-input input-text">
+                        <input name="vcode" type="text" ng-model="user.vcode" required minlength="6" maxlength="6" placeholder="验证码">
+                    </label>
+                </div>
+                <div class="col">
+                    <button class="button button-yxdj btn-vcode" ng-click="validateCode()" ng-init="btnEnable=true" ng-disabled="!btnEnable">({{etime}})获取验证码</button>
+                </div>
+            </div>
+            <ion-checkbox name="isok" ng-model="user.isok" class="checkbox-balanced">同意<b class="b1">《一心堂商城服务协议》</b></ion-checkbox>
+            <button class="button button-full ion-checkmark-round btn-regist" ng-disabled="myForm.$invalid" ng-click="save()">注册</button>
+        </form>
+    </ion-content>
+</ion-view>

@@ -11,7 +11,9 @@ require.config({
         // 基础依赖
         'userService': '/js/service/userService',
         // 分组依赖
-        'productListService': '/js/service/product/productListService'
+        'productListService': '/js/service/product/productListService',
+        // 确认订单
+        'confirmOrderService': '/js/service/order/confirmOrderService'
     },
     shim: {
         'ionic': {

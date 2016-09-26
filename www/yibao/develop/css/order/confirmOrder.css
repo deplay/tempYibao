@@ -1,0 +1,106 @@
+.confirmOrder{
+margin-top: 45px;
+}
+
+.confirmOrder-shop {
+    border-bottom: 1px solid #298784;
+    margin-bottom: 20px;
+}
+
+.div_activity_title {
+	margin: 0px;
+    width: 100%;
+    min-height: 20px;
+    line-height: 20px;
+    padding-left: 5px;
+    font-size: 13px;
+    font-weight: bolder;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.confirmOrder-shop .confirm-list {
+    margin: 0px;
+}
+
+.confirmOrder-shop .confirm-list a {
+    position: relative;
+    border-right: 0px;
+    border-left: 0px;
+    padding-right: 5px !important;
+    padding-left: 90px !important;
+    padding-top: 0px !important;
+    min-height: 92px !important;
+}
+
+.confirmOrder-shop .confirm-list a img {
+    top: 5px !important;
+    left: 2px !important;
+}
+
+.conOrder-title {
+    width: 100%;
+    font-size: 12px;
+    height: 40px;
+    line-height: 20px;
+    overflow: hidden;
+    white-space: normal !important;
+}
+
+.conOrder-price {
+    margin-top: 10px;
+}
+
+.conOrder-price .price {
+    font-size: 16px !important;
+    color: #ee0000 !important;
+    float: left;
+    font-weight: bolder;
+}
+
+.conOrder-price .pprice {
+    float: left;
+    font-size: 12px;
+    margin-left: 5px;
+    text-decoration: line-through;
+}
+
+.conOrder-price .quant {
+    float: right;
+}
+
+.confirm-order-total-price {
+    padding: 0px;
+    line-height: 44px;
+    text-align: right;
+    font-size: 18px !important;
+    margin-right: 5px;
+}
+
+.nopadding {
+    padding: 0 !important;
+}
+
+.bar-footer .button-full {
+    margin: 0px !important;
+    letter-spacing: 4px;
+    min-height: 47px !important;
+}
+
+.button.button-assertive{
+	background-color: #298784 !important;
+}
+
+.button.activated{
+	opacity: 0.6;
+}
+
+.bar-stable{
+	margin-bottom: 45px;
+	padding: 0px;
+}
+
+.row{
+	padding: 0px;
+}

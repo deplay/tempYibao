@@ -89,6 +89,26 @@ angular.module('routes', [])
                 }
             });
 
+        $stateProvider
+            .state('register', {
+                url: '/register',
+                templateProvider: loadTpl(['\\html\\user\\register.html']),
+                resolve: {
+                    js: asyncLoad(['controller/user/register']),
+                    css: loadCss('\\css\\user\\register.css')
+                }
+            });
+
+        $stateProvider
+            .state('confirmOrder', {
+                url: '/confirmOrder',
+                templateProvider: loadTpl(['\\html\\order\\confirmOrder.html']),
+                resolve: {
+                    js: asyncLoad(['controller/order/confirmOrder']),
+                    css: loadCss('\\css\\order\\confirmOrder.css')
+                }
+            });
+
 
 
 
