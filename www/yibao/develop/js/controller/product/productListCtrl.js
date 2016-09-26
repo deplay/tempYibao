@@ -20,7 +20,6 @@ define(['yibao', 'productListService'], function(yibao, productListService) {
             $productListService
                 .loadData(code, '', pageIndex, sorts)
                 .then(function(res) {
-                    console.log(res);
                     $scope.productsList = res.data.products;
                     hideLoading();
                 }, function(err) {

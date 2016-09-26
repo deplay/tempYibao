@@ -14,8 +14,6 @@ yibaoCommon.constant('DEBUG', false)
     })
     // 服务
 yibaoCommon.service('$getUrl', ['DEBUG', 'SERVER', 'URLMAP', function(DEBUG, SERVER, URLMAP) {
-    console.log(SERVER);
-    console.log(DEBUG);
     return function(key) {
         var url = URLMAP[key];
         if (!url) {
@@ -26,6 +24,89 @@ yibaoCommon.service('$getUrl', ['DEBUG', 'SERVER', 'URLMAP', function(DEBUG, SER
         var fullUrl = DEBUG ? SERVER.testUrl + url : SERVER.url + url;
         return fullUrl;
     };
+}]);
+// 数据服务
+yibaoCommon.service('$data', ['$cacheFactory', '$localForage', '$q', '$http', function($cacheFactory, $localForage, $q, $http) {
+    // 配置
+    // 有效期,单位毫秒
+    var expires = 30 * 60 * 1000;
+
+    // 要缓存的正则
+    // 首页，搜索列表，详情页，登录
+    var cacheMap = [
+        /\/yxtws\/v1\/hxyxt\/category\/yxdj\//
+    ];
+
+    // 为内层函数提供引用
+    var self = this;
+    // set
+    this.set = function(nameSpace, key, value) {
+        var deferred = $q.defer();
+        var nameSpaceMemory = $cacheFactory.get(nameSpace) || $cacheFactory(nameSpace);
+        nameSpaceMemory.put(key, value);
+        try {
+            var nameSpaceLocal = $localForage.instance(nameSpace);
+        } catch (e) {
+            var nameSpaceLocal = $localForage.createInstance({ name: nameSpace });
+        }
+        nameSpaceLocal.setItem(key, value);
+        deferred.resolve();
+        return deferred.promise;
+    };
+
+    // get
+    this.get = function(nameSpace, key, ajax, postAction, refresh) {
+        var deferred = $q.defer();
+        if (ajax) { //处理ajax的刷新和缓存
+            var keyJson = angular.toJson(key);
+            notAjax(nameSpace, keyJson).then(function(res) {
+                if (!refresh && res !== null && (new Date).getTime() < res.expires) {
+                    console.log('取缓存');
+                    deferred.resolve(res);
+                } else {
+                    console.log('取新值');
+                    $http(key).then(function(res) {
+                        var storeData = {
+                            data: res,
+                            expires: (new Date).getTime() + expires
+                        };
+                        (postAction || angular.noop)(self, storeData);
+                        deferred.resolve(storeData); //提交给请求程序使用
+                        var flag = false;
+                        angular.forEach(cacheMap, function(v, k, o) {
+                            if (flag === true) return;
+                            if (v.test(key.url)) {
+                                self.set('ajax', keyJson, storeData); //存储
+                                flag = true;
+                            }
+                        });
+                    }, function(err) {
+                        console.log('内存和local无缓存且请求失败');
+                    });
+                }
+            })
+        } else { //普通
+            notAjax(nameSpace, key).then(function(res) {
+                deferred.resolve(res);
+            })
+        }
+        return deferred.promise;
+
+        function notAjax(nameSpace, key) {
+            var value;
+            var nameSpaceMemory = $cacheFactory.get(nameSpace) || $cacheFactory(nameSpace);
+            value = nameSpaceMemory.get(key);
+            if (value) return $q.resolve(value);
+            try {
+                var nameSpaceLocal = $localForage.instance(nameSpace);
+            } catch (e) {
+                var nameSpaceLocal = $localForage.createInstance({ name: nameSpace });
+            }
+            value = nameSpaceLocal.getItem(key);
+            return value;
+        };
+    };
+
 }]);
 
 // 指令
