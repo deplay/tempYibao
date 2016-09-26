@@ -8,19 +8,39 @@ define(['yibao', 'productListService'], function(yibao, productListService) {
         // 关闭loading
         function hideLoading() {
             $scope.loading = false;
+            $scope.$broadcast('scroll.refreshComplete');
+            $scope.$broadcast('scroll.infiniteScrollComplete');
         }
 
-        var code = 'YXT520010001';
-        var pageIndex = -1;
-        var sorts = 'relevance'; //搜索结果排序方式
+        // 变量控制
+        var shopCode = 'A003';
+        var currentPage = 0;
+        var pageSize = 20; //搜索结果排序方式
+        $scope.hasData = true;
+        $scope.moredata = false;
+        // 样式控制初始化
+        $scope.style = {
+            one: false,
+            price: false,
+            reviews: false
+        };
+        $scope.doRefresh = function() {
+            currentPage = 0;
+            loadData('reload');
+        }
 
-
-        function loadData() {
+        function loadData(mode) {
             showLoading();
             $productListService
-                .loadData(code, '', pageIndex, sorts)
+                .loadData(shopCode, currentPage, pageSize)
                 .then(function(res) {
-                    $scope.productsList = res.data.products;
+                    if (mode === 'append') {
+                        angular.forEach(res.products, function(v, k, o) {
+                            $scope.products.push(v);
+                        });
+                    } else {
+                        $scope.products = res.products;
+                    }
                     hideLoading();
                 }, function(err) {
                     console.log(err);
@@ -28,36 +48,5 @@ define(['yibao', 'productListService'], function(yibao, productListService) {
         }
         // 页面加载首次执行
         loadData();
-        $scope.hasData=true;
-        // 样式控制初始化
-        $scope.style = {
-            one: false,
-            price: false,
-            reviews: false
-        };
-        // 头部排序方式选择
-        //选择排序方式
-        var tabs = [
-                { tag: '综合', sort: 'relevance' },
-                { tag: '热搜', sort: 'topRated' },
-                { tag: '销量', sort: 'saleAmount' },
-                { tag: '价格从低到高', sort: 'price-asc' },
-                { tag: '价格从高到低', sort: 'price-desc' },
-                { tag: '评价从低到高', sort: 'reviews-asc' },
-                { tag: '评价从高到低', sort: 'reviews-desc' }
-            ]
-            //切换    
-        $scope.tabindex = $stateParams.index == '' || $stateParams.index == undefined ? 0 : parseInt($stateParams.index);
-        $scope.changeIndex = function(i) {
-                $scope.tabindex = i;
-                // $scope.$parent.loading = true;
-                sorts = tabs[i].sort;
-                // init();
-            }
-            // 下拉刷新
-        $scope.doRefresh = function() {
-            // pageIndex = 0;
-            // loadData();
-        }
     }]);
 });

@@ -1,7 +1,5 @@
 angular.module('routes', [])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-
-
         function loadCss(css) {
             return ['$q', '$rootScope', function($q, $rootScope) {
                 var dependencies = [];

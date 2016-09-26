@@ -9,8 +9,6 @@ require.config({
         'yibao': '/js/yibao',
         'yibao.common': '/js/yibao.common',
         'routes': '/js/routes',
-        // 基础依赖
-        'userService': '/js/service/userService',
         // 分组依赖
         'productListService': '/js/service/product/productListService'
     },

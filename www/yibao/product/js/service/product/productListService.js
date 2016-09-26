@@ -1,4 +1,3 @@
-define(["yibao"],function(yibao){yibao.service("$productListService",["$q","$data","$http","$getUrl",function($q,$data,$http,$getUrl){this.loadData=function(id,again,pageIndex,sort){$data.set();
-var deferred=$q.defer();var url=$getUrl("productList")+id;var paras={q:again+":relevance:productType:TUANGOU:productType:YXDJ",page:pageIndex,sort:sort,channe:"hxyxt"};
-$http({url:url,method:"GET",params:paras}).then(function(res){deferred.resolve(res)
-},function(err){deferred.reject(err)});return deferred.promise}}])});
+define(["yibao"],function(yibao){yibao.service("$productListService",["$q","$data","$getUrl","$user",function($q,$data,$getUrl,$user){this.loadData=function(shopCode,currentPage,pageSize){var deferred=$q.defer();
+var url=$getUrl("productList")+shopCode;console.log(url);$user.getToken().then(function(tokenObj){$data.get("ajax",{url:url,method:"GET",params:{currentPage:currentPage,pageSize:pageSize,access_token:tokenObj.token}},true).then(function(res){deferred.resolve(res.res.data)
+},function(err){deferred.reject(err)})});return deferred.promise}}])});
