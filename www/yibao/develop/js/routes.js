@@ -77,8 +77,17 @@ angular.module('routes', [])
                     js: asyncLoad(['controller/product/productListCtrl']),
                     css: loadCss('\\css\\product\\productList.css')
                 }
-            })
+            });
 
+        $stateProvider
+            .state('login', {
+                url: '/login',
+                templateProvider: loadTpl(['\\html\\user\\login.html']),
+                resolve: {
+                    js: asyncLoad(['controller/user/login']),
+                    css: loadCss('\\css\\user\\login.css')
+                }
+            });
 
 
 
