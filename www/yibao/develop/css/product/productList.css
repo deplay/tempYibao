@@ -25,7 +25,7 @@
 }
 
 ion-view[ng-controller=productListCtrl] ion-content {
-    margin-top: 37px;
+    /*margin-top: 37px;*/
 }
 
 .noProductBox {

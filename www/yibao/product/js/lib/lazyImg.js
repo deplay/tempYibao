@@ -57,5 +57,5 @@ scope.$on("lazyImg.destroyed",_response);scope.$on("$destroy",function(){$rootSc
 eventToggle($container,"off",_response)})}}}}]);lazyImg.factory("loadImg",["$q","$timeout","lazyImgConfig",function($q,$timeout,lazyImgConfig){function _loadImg(element,attrs){var newImage=new Image();
 var newImageWrapper=angular.element(newImage);newImageWrapper.attr("style",attrs.style);
 newImageWrapper.attr("class",attrs["class"]);$timeout(function(){var src=attrs.lazySrc;
-src+="!"+Math.ceil(window.screen.width*1.6*0.5)+"x"+70+".jpg";newImage.src=src;newImage.onload=function(){element.replaceWith(newImage)
-}})}return _loadImg}]);
+if(!src){return}src+="!"+Math.ceil(window.screen.width*1.6*0.5)+"x"+70+".jpg";newImage.src=src;
+newImage.onload=function(){element.replaceWith(newImage)}})}return _loadImg}]);

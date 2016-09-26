@@ -1,19 +1,4 @@
 <ion-view title="商品列表" ng-controller="productListCtrl">
-    <div class="row noPadding productListType">
-        <div class="col button-bar">
-            <a class="assertive" ng-class="{active:tabindex==0}" ng-click='changeIndex(0)'>综合</a>
-            <a ng-class="{active:tabindex==1}" ng-click='changeIndex(1)'>热搜</a>
-            <a ng-class="{active:tabindex==2}" ng-click='changeIndex(2)'>销量</a>
-            <a ng-class="{active:tabindex==4}" class="ion-ios-arrow-thin-down" ng-click='changeIndex(3);style.price=true;' ng-show="!style.price">价格</a>
-            <a ng-class="{active:tabindex==3}" class="ion-ios-arrow-thin-up" ng-click='changeIndex(4);style.price=false;' ng-show="style.price">价格</a>
-        </div>
-        <a class="col col-10" ng-click="style.one=true;">
-            <i class="icon ion-navicon-round" ng-class="{assertive:style.one}"></i>
-        </a>
-        <a class="col col-10" ng-click="style.one=false;" ng-class="{assertive:!style.one}">
-            <i class="icon ion-android-apps"></i>
-        </a>
-    </div>
     <ion-content delegate-handle="productListScroll" ng-class="{fullIonContentScroll:true}" lazy-img-container>
         <my-go-top></my-go-top>
         <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
@@ -28,7 +13,7 @@
         </div>
         <div ng-if="hasData" ng-class="{'productListStyle1':style.one,'productListStyle2':!style.one}">
             <div class="switchRow">
-                <div class="product" ng-class-even="'product2'" ng-repeat="(i,product) in productsList track by product.code">
+                <div class="product" ng-class-even="'product2'" ng-repeat="(i,product) in products track by product.code">
                     <div class="imagetextContainer">
                         <div class="image" ui-sref="product({id:product.code})">
                             <lazy-img lazy-src="{{product.images[0].url}}" alt="{{product.name}}" /></lazy-img>
@@ -42,14 +27,14 @@
                             <p class="productPrice price" ng-show='product.hasPromotion=true && product.promotionPrice!=undefined'>
                                 <span>{{product.promotionPrice.formattedValue}}</span>
                             </p>
-                            <i class="favoriteBtn ion-android-favorite-outline assertive" ng-click="addFavorites(product.code,i)" ng-show='(product.isTuanGou=="false" || product.isTuanGou=="[false]") && !product.isMainProduct'></i>
-                            <i class="ion-ios-cart assertive addCartBtn" ng-click="addCart(product.code)" ng-show='product.from!="JD" && (product.isTuanGou=="false" || product.isTuanGou=="[false]") && !product.isMainProduct && product.stock.stockLevelStatus.codeLowerCase!="outofstock"' my-fly-cart=".gocart" fly-src="{{product.images[0].url}}"></i>
+                            <i class="favoriteBtn ion-android-favorite-outline assertive" ng-click="addFavorites(product.code,i)"></i>
+                            <i class="ion-ios-cart assertive addCartBtn" ng-click="addCart(product.code)" my-fly-cart=".gocart" fly-src="{{product.images[0].url}}"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="noMore" ng-if="!moredata && productsList.length>3">亲,没有更多了哦！</div>
+        <div class="noMore" ng-if="!moredata">亲,没有更多了哦！</div>
         <ion-infinite-scroll ng-if="moredata" immediate-check="false" on-infinite="loadMore()" distance="10"></ion-infinite-scroll>
     </ion-content>
     <my-loading></my-loading>

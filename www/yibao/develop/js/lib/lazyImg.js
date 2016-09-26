@@ -367,6 +367,7 @@ lazyImg.factory('loadImg', ['$q', '$timeout', 'lazyImgConfig', function($q, $tim
             var src = attrs['lazySrc'];
             // 后期通过dPR和屏幕宽度请求高清图
             // 但是一定要分段
+            if(!src) return;
             src += '!' + Math.ceil(window.screen.width * 1.6 * 0.5) + 'x' + 70 + '.jpg';
             newImage.src = src;
             // 加载成功替换节点
