@@ -269,7 +269,7 @@ lazyImg.factory('dPR', ['$window', function($window) {
 // 用于在启动时提供配置
 lazyImg.provider('lazyImgConfig', [function() {
     // 默认thresh
-    this.thresh = 250;
+    this.thresh = 250;//250
     // 默认支持对像素密度的处理
     this.supportDevicePixelRatio = true;
     // export
@@ -347,7 +347,6 @@ lazyImg.directive('lazyImg', ['$q', '$window', '$rootScope', 'debounce', 'DPQ', 
                     // remove our events and image
                     eventToggle($container, 'off', _response);
                 });
-
             };
         }
     };
