@@ -75,3 +75,7 @@
     background: #298784 !important;
     border-color: #298784 !important;
 }
+
+.toast-title{
+    font-weight: 100 !important;
+}

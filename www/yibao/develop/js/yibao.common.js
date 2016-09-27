@@ -156,7 +156,7 @@ yibaoCommon.service('$user', ['$q', '$data', '$getUrl', function($q, $data, $get
         $data.get('ajax', {
             url: url,
             method: 'POST',
-            data: dataObj//params
+            data: dataObj //params
         }, true, postAction).then(function(res) {
             deferred.resolve(res);
         }, function(err) {
@@ -191,8 +191,26 @@ yibaoCommon.service('$user', ['$q', '$data', '$getUrl', function($q, $data, $get
     };
 }]);
 
-yibaoCommon.service('smsCode', ['$data', function($data) {
-
+yibaoCommon.service('$smsCode', ['$q', '$data', '$getUrl', function($q, $data, $getUrl) {
+    var self = this;
+    this.validateCode = function(vcode) {//注册获取验证码
+        console.log(vcode);
+        var deferred = $q.defer();
+        var url = $getUrl('validateCode');  
+        var paras = {
+            phoneNumber: vcode
+        };
+        $data.get('ajax', {
+            url: url,
+            method: 'POST',
+            data: paras 
+        }, true).then(function(res) {
+            deferred.resolve(res.res.data);
+        }, function(err) {
+            deferred.reject(err);
+        });
+        return deferred.promise;
+    };
 
 }]);
 
