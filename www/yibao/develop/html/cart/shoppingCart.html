@@ -1,0 +1,274 @@
+<ion-view title="购物车" class=" " ng-controller="cartCtrl">
+    <ion-content class=" " has-bouncing="true" scroll="true">
+        <div class="divtable mainbg color9" ng-if="isEmpty"> <i ng-click="goTabs(0)" class="ion ion-ios-cart-outline" style="font-size: 100px;margin: auto"></i>
+            <br>
+            <a>购物是空的,去逛逛吧</a>
+        </div>
+        <!--         <ion-refresher pulling-text="下拉刷新" on-refresh="readData(0)"></ion-refresher> -->
+        <ion-list can-swipe="true">
+            <div class="business_container">
+                <div class="row">
+                    <div class="col div_activity_title" style="margin: 0px;">一心堂</div>
+                    <div class="col div_item_edit" edit-cart>
+                        <span><i class="icon" ng-class="{'ion-checkmark ico-5':isEdit,'ion-gear-b ico-3':!isEdit}"></i>{{!isEdit?'编辑':'完成'}}</span>
+                    </div>
+                </div>
+                <div class="row" ng-show='c.appliedOrderPromotions[0].description.length>0 && c.appliedOrderPromotions[0].description!="Error, message not found"'>
+                    <div class="col ion-speakerphone" style="color: #ffc900;">{{c.appliedOrderPromotions[0].description}}</div>
+                </div>
+                <ion-item class="item-car item-car-nocb">
+                    <img ng-src="http://image.hxyxt.com/medias/sys_master/images/images/hea/ha1/9377191395358.jpg" alt="" ui-sref="product({id:p.product.code})" />
+                    <div class="product-info">
+                        <h2 class="productTitle">【一心到家】新鲜蔬菜 方便菜 西芹一份 精选新鲜西芹 气味清新 脆嫩爽口</h2>
+                        <!-- 商品规格 -->
+                        <p class="productPromotions color3" ng-show=" "></p>
+                        <!-- 商品活动信息 -->
+                        <p class="productPromotions color3" id="promotionsInfo"></p>
+                    </div>
+                    <div class="count-price">
+                        <span class="promotionPrice assertive">¥4.00<span ng-show="$root.screenSize>320" class="base-price">¥4.00</span></span>
+                        <div class="special count" ng-show="!edit">
+                            <button special-sign='{index:{{i}},entrynum:{{p.entryNumber}}}' class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity-1)">-</button>
+                            <input type="text" readonly="readonly" value="5" />
+                            <button class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity+1)">+</button>
+                        </div>
+                        <div class="count d-edit-true" ng-show="edit">
+                            x<span ng-bind="p.quantity"></span>
+                            <i class="icon ion-minus-circled i-item-delete" ng-click="changeCount(p.product.code,0,true)"></i>
+                        </div>
+                    </div>
+                    <ion-option-button class="button-assertive" ng-click="changeCount(p.product.code,0,true)">&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;&nbsp;</ion-option-button>
+                    <div ng-if="p.product.stock.stockLevel<=0">
+                        <div class="stock0-cover" ui-sref="product({id:p.product.code})"></div>
+                        <div class="stock0 assertive">缺货</div>
+                    </div>
+                </ion-item>
+
+
+
+
+                <ion-item class="item-car item-car-nocb">
+                    <img ng-src="http://image.hxyxt.com/medias/sys_master/images/images/hea/ha1/9377191395358.jpg" alt="" ui-sref="product({id:p.product.code})" />
+                    <div class="product-info">
+                        <h2 class="productTitle">【一心到家】新鲜蔬菜 方便菜 西芹一份 精选新鲜西芹 气味清新 脆嫩爽口</h2>
+                        <!-- 商品规格 -->
+                        <p class="productPromotions color3" ng-show=" "></p>
+                        <!-- 商品活动信息 -->
+                        <p class="productPromotions color3" id="promotionsInfo"></p>
+                    </div>
+                    <div class="count-price">
+                        <span class="promotionPrice assertive">¥4.00<span ng-show="$root.screenSize>320" class="base-price">¥4.00</span></span>
+                        <div class="special count" ng-show="!edit">
+                            <button special-sign='{index:{{i}},entrynum:{{p.entryNumber}}}' class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity-1)">-</button>
+                            <input type="text" readonly="readonly" value="5" />
+                            <button class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity+1)">+</button>
+                        </div>
+                        <div class="count d-edit-true" ng-show="edit">
+                            x<span ng-bind="p.quantity"></span>
+                            <i class="icon ion-minus-circled i-item-delete" ng-click="changeCount(p.product.code,0,true)"></i>
+                        </div>
+                    </div>
+                    <ion-option-button class="button-assertive" ng-click="changeCount(p.product.code,0,true)">&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;&nbsp;</ion-option-button>
+                    <div ng-if="p.product.stock.stockLevel<=0">
+                        <div class="stock0-cover" ui-sref="product({id:p.product.code})"></div>
+                        <div class="stock0 assertive">缺货</div>
+                    </div>
+                </ion-item>
+
+
+                <ion-item class="item-car item-car-nocb">
+                    <img ng-src="http://image.hxyxt.com/medias/sys_master/images/images/hea/ha1/9377191395358.jpg" alt="" ui-sref="product({id:p.product.code})" />
+                    <div class="product-info">
+                        <h2 class="productTitle">【一心到家】新鲜蔬菜 方便菜 西芹一份 精选新鲜西芹 气味清新 脆嫩爽口</h2>
+                        <!-- 商品规格 -->
+                        <p class="productPromotions color3" ng-show=" "></p>
+                        <!-- 商品活动信息 -->
+                        <p class="productPromotions color3" id="promotionsInfo"></p>
+                    </div>
+                    <div class="count-price">
+                        <span class="promotionPrice assertive">¥4.00<span ng-show="$root.screenSize>320" class="base-price">¥4.00</span></span>
+                        <div class="special count" ng-show="!edit">
+                            <button special-sign='{index:{{i}},entrynum:{{p.entryNumber}}}' class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity-1)">-</button>
+                            <input type="text" readonly="readonly" value="5" />
+                            <button class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity+1)">+</button>
+                        </div>
+                        <div class="count d-edit-true" ng-show="edit">
+                            x<span ng-bind="p.quantity"></span>
+                            <i class="icon ion-minus-circled i-item-delete" ng-click="changeCount(p.product.code,0,true)"></i>
+                        </div>
+                    </div>
+                    <ion-option-button class="button-assertive" ng-click="changeCount(p.product.code,0,true)">&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;&nbsp;</ion-option-button>
+                    <div ng-if="p.product.stock.stockLevel<=0">
+                        <div class="stock0-cover" ui-sref="product({id:p.product.code})"></div>
+                        <div class="stock0 assertive">缺货</div>
+                    </div>
+                </ion-item>
+
+
+                <ion-item class="item-car item-car-nocb">
+                    <img ng-src="http://image.hxyxt.com/medias/sys_master/images/images/hea/ha1/9377191395358.jpg" alt="" ui-sref="product({id:p.product.code})" />
+                    <div class="product-info">
+                        <h2 class="productTitle">【一心到家】新鲜蔬菜 方便菜 西芹一份 精选新鲜西芹 气味清新 脆嫩爽口</h2>
+                        <!-- 商品规格 -->
+                        <p class="productPromotions color3" ng-show=" "></p>
+                        <!-- 商品活动信息 -->
+                        <p class="productPromotions color3" id="promotionsInfo"></p>
+                    </div>
+                    <div class="count-price">
+                        <span class="promotionPrice assertive">¥4.00<span ng-show="$root.screenSize>320" class="base-price">¥4.00</span></span>
+                        <div class="special count" ng-show="!edit">
+                            <button special-sign='{index:{{i}},entrynum:{{p.entryNumber}}}' class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity-1)">-</button>
+                            <input type="text" readonly="readonly" value="5" />
+                            <button class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity+1)">+</button>
+                        </div>
+                        <div class="count d-edit-true" ng-show="edit">
+                            x<span ng-bind="p.quantity"></span>
+                            <i class="icon ion-minus-circled i-item-delete" ng-click="changeCount(p.product.code,0,true)"></i>
+                        </div>
+                    </div>
+                    <ion-option-button class="button-assertive" ng-click="changeCount(p.product.code,0,true)">&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;&nbsp;</ion-option-button>
+                    <div ng-if="p.product.stock.stockLevel<=0">
+                        <div class="stock0-cover" ui-sref="product({id:p.product.code})"></div>
+                        <div class="stock0 assertive">缺货</div>
+                    </div>
+                </ion-item>
+
+
+
+                <ion-item class="item-car item-car-nocb">
+                    <img ng-src="http://image.hxyxt.com/medias/sys_master/images/images/hea/ha1/9377191395358.jpg" alt="" ui-sref="product({id:p.product.code})" />
+                    <div class="product-info">
+                        <h2 class="productTitle">【一心到家】新鲜蔬菜 方便菜 西芹一份 精选新鲜西芹 气味清新 脆嫩爽口</h2>
+                        <!-- 商品规格 -->
+                        <p class="productPromotions color3" ng-show=" "></p>
+                        <!-- 商品活动信息 -->
+                        <p class="productPromotions color3" id="promotionsInfo"></p>
+                    </div>
+                    <div class="count-price">
+                        <span class="promotionPrice assertive">¥4.00<span ng-show="$root.screenSize>320" class="base-price">¥4.00</span></span>
+                        <div class="special count" ng-show="!edit">
+                            <button special-sign='{index:{{i}},entrynum:{{p.entryNumber}}}' class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity-1)">-</button>
+                            <input type="text" readonly="readonly" value="5" />
+                            <button class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity+1)">+</button>
+                        </div>
+                        <div class="count d-edit-true" ng-show="edit">
+                            x<span ng-bind="p.quantity"></span>
+                            <i class="icon ion-minus-circled i-item-delete" ng-click="changeCount(p.product.code,0,true)"></i>
+                        </div>
+                    </div>
+                    <ion-option-button class="button-assertive" ng-click="changeCount(p.product.code,0,true)">&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;&nbsp;</ion-option-button>
+                    <div ng-if="p.product.stock.stockLevel<=0">
+                        <div class="stock0-cover" ui-sref="product({id:p.product.code})"></div>
+                        <div class="stock0 assertive">缺货</div>
+                    </div>
+                </ion-item>
+
+
+                <ion-item class="item-car item-car-nocb">
+                    <img ng-src="http://image.hxyxt.com/medias/sys_master/images/images/hea/ha1/9377191395358.jpg" alt="" ui-sref="product({id:p.product.code})" />
+                    <div class="product-info">
+                        <h2 class="productTitle">【一心到家】新鲜蔬菜 方便菜 西芹一份 精选新鲜西芹 气味清新 脆嫩爽口</h2>
+                        <!-- 商品规格 -->
+                        <p class="productPromotions color3" ng-show=" "></p>
+                        <!-- 商品活动信息 -->
+                        <p class="productPromotions color3" id="promotionsInfo"></p>
+                    </div>
+                    <div class="count-price">
+                        <span class="promotionPrice assertive">¥4.00<span ng-show="$root.screenSize>320" class="base-price">¥4.00</span></span>
+                        <div class="special count" ng-show="!edit">
+                            <button special-sign='{index:{{i}},entrynum:{{p.entryNumber}}}' class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity-1)">-</button>
+                            <input type="text" readonly="readonly" value="5" />
+                            <button class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity+1)">+</button>
+                        </div>
+                        <div class="count d-edit-true" ng-show="edit">
+                            x<span ng-bind="p.quantity"></span>
+                            <i class="icon ion-minus-circled i-item-delete" ng-click="changeCount(p.product.code,0,true)"></i>
+                        </div>
+                    </div>
+                    <ion-option-button class="button-assertive" ng-click="changeCount(p.product.code,0,true)">&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;&nbsp;</ion-option-button>
+                    <div ng-if="p.product.stock.stockLevel<=0">
+                        <div class="stock0-cover" ui-sref="product({id:p.product.code})"></div>
+                        <div class="stock0 assertive">缺货</div>
+                    </div>
+                </ion-item>
+
+
+                <ion-item class="item-car item-car-nocb">
+                    <img ng-src="http://image.hxyxt.com/medias/sys_master/images/images/hea/ha1/9377191395358.jpg" alt="" ui-sref="product({id:p.product.code})" />
+                    <div class="product-info">
+                        <h2 class="productTitle">【一心到家】新鲜蔬菜 方便菜 西芹一份 精选新鲜西芹 气味清新 脆嫩爽口</h2>
+                        <!-- 商品规格 -->
+                        <p class="productPromotions color3" ng-show=" "></p>
+                        <!-- 商品活动信息 -->
+                        <p class="productPromotions color3" id="promotionsInfo"></p>
+                    </div>
+                    <div class="count-price">
+                        <span class="promotionPrice assertive">¥4.00<span ng-show="$root.screenSize>320" class="base-price">¥4.00</span></span>
+                        <div class="special count" ng-show="!edit">
+                            <button special-sign='{index:{{i}},entrynum:{{p.entryNumber}}}' class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity-1)">-</button>
+                            <input type="text" readonly="readonly" value="5" />
+                            <button class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity+1)">+</button>
+                        </div>
+                        <div class="count d-edit-true" ng-show="edit">
+                            x<span ng-bind="p.quantity"></span>
+                            <i class="icon ion-minus-circled i-item-delete" ng-click="changeCount(p.product.code,0,true)"></i>
+                        </div>
+                    </div>
+                    <ion-option-button class="button-assertive" ng-click="changeCount(p.product.code,0,true)">&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;&nbsp;</ion-option-button>
+                    <div ng-if="p.product.stock.stockLevel<=0">
+                        <div class="stock0-cover" ui-sref="product({id:p.product.code})"></div>
+                        <div class="stock0 assertive">缺货</div>
+                    </div>
+                </ion-item>
+
+
+                <ion-item class="item-car item-car-nocb">
+                    <img ng-src="http://image.hxyxt.com/medias/sys_master/images/images/hea/ha1/9377191395358.jpg" alt="" ui-sref="product({id:p.product.code})" />
+                    <div class="product-info">
+                        <h2 class="productTitle">【一心到家】新鲜蔬菜 方便菜 西芹一份 精选新鲜西芹 气味清新 脆嫩爽口</h2>
+                        <!-- 商品规格 -->
+                        <p class="productPromotions color3" ng-show=" "></p>
+                        <!-- 商品活动信息 -->
+                        <p class="productPromotions color3" id="promotionsInfo"></p>
+                    </div>
+                    <div class="count-price">
+                        <span class="promotionPrice assertive">¥4.00<span ng-show="$root.screenSize>320" class="base-price">¥4.00</span></span>
+                        <div class="special count" ng-show="!edit">
+                            <button special-sign='{index:{{i}},entrynum:{{p.entryNumber}}}' class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity-1)">-</button>
+                            <input type="text" readonly="readonly" value="5" />
+                            <button class="button button-small button-stable" ng-click="changeCount(p.product.code,p.quantity+1)">+</button>
+                        </div>
+                        <div class="count d-edit-true" ng-show="edit">
+                            x<span ng-bind="p.quantity"></span>
+                            <i class="icon ion-minus-circled i-item-delete" ng-click="changeCount(p.product.code,0,true)"></i>
+                        </div>
+                    </div>
+                    <ion-option-button class="button-assertive" ng-click="changeCount(p.product.code,0,true)">&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;&nbsp;</ion-option-button>
+                    <div ng-if="p.product.stock.stockLevel<=0">
+                        <div class="stock0-cover" ui-sref="product({id:p.product.code})"></div>
+                        <div class="stock0 assertive">缺货</div>
+                    </div>
+                </ion-item>
+
+
+
+
+
+
+
+            </div>
+        </ion-list>
+    </ion-content>
+    <my-loading></my-loading>
+    <ion-footer-bar align-title="left" class="bar-stable nopadding">
+        <div class="row nopadding">
+            <div class="col col-70 nopadding cart-price">
+                合计：<i>¥13.00</i>
+            </div>
+            <div class="col col-30 nopadding">
+                <button class="button button-assertive button-full ion-arrow-return-right nomargin" ng-click="$root.goTime('confirmOrder');" ng-if="submitAble">结算</button>
+                <button class="button button-assertive button-full ion-arrow-return-right nomargin" ng-click="submitFalse()" ng-if="!submitAble">结算</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

@@ -71,7 +71,52 @@ define(['yibao'], function(yibao) {
                 hideLoading();
                 toaster.pop('error', '网络连接错误！');
             });
-
         }
+
+        $scope.save = function() {
+            //校验是否选种服务条款
+            if ($scope.user.isok == false) {
+                $scope.myForm.isok.$valid = false;
+                $scope.myForm.$invalid = true;
+            }
+            //表单校验
+            if ($scope.myForm.$invalid) {
+                var emsg = $Verification.getInvalidMsg($scope.myForm, invalidMsg);
+                toaster.error(emsg);
+                return;
+            }
+            var loginUser = {
+                username: $scope.user.cellphone,
+                password: $scope.user.password
+            };
+            showLoading();
+            $user.register($scope.user).then(function(result) {
+                 hideLoading();
+                // $state.go('login');
+                toaster.success('注册成功!登录中...');
+                $user.login(loginUser).then(function(token) {       
+                    $ionicHistory.goBack(-2);
+                }, function(msg) {
+                    hideLoading();
+                    toaster.pop('error', '用户名或密码错误！');
+                });
+
+
+            }, function(res) {
+                hideLoading();
+                if (!res) {
+                    return;
+                }
+                if (res.errors[0].type == 'RuntimeError') {
+                    toaster.error("验证码错误或与手机号不匹配！");
+                } else {
+                    toaster.error(res.errors[0].message);
+                } 
+            });
+        };
+
+
+
+
     }]);
 });

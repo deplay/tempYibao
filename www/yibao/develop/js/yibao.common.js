@@ -12,6 +12,7 @@ yibaoCommon.constant('DEBUG', true)
         login: '/yxtws/oauth/token',
         productList: '/yxtws/v1/hxyxt/yinhai/',
         product: '/yxtws/v1/hxyxt/yinhai/product/',
+        reg: '/yxtws/v1/hxyxt/customers', //注册
         validateCode: '/yxtws/v1/hxyxt/customers/smsValidateCode', //获取验证码
         getuserCode: '/yxtws/v1/hxyxt/passreset/request/staffyanzhengma', //员工密码找回获取验证码
         userSetpwd: '/yxtws/v1/hxyxt/passreset/request/staff', //员工密码修改
@@ -186,28 +187,54 @@ yibaoCommon.service('$user', ['$q', 'toaster', '$data', '$getUrl', function($q, 
         return deferred.promise;
     };
 
-    this.register = function() {
-
+    this.register = function(user) {
+        var deferred = $q.defer();
+        $getTokenService().then(function(token) {
+            var paras = {
+                password: user.password,
+                phoneNumber: user.cellphone,
+                referee: user.referee,
+                channel: user.registerYxdj,
+                validateCode: user.vcode,
+                access_token: token.access_token
+            };
+            // paras.access_token = token.access_token;
+            var url = $getUrl('reg');
+            $data.get('ajax', {
+                url: url,
+                method: 'POST',
+                data: paras
+            }, true).then(function(res) {
+                var msg = $errorHandel(obj);
+                if (msg) {
+                    if (msg.indexOf('uid重复') > -1) {
+                        msg = '邮箱已被注册';
+                    }
+                    deferred.reject(msg);
+                } else deferred.resolve(obj);
+            }, function(resp, code) {
+                var msg = $errorHandel(resp);
+                deferred.reject(msg || resp);
+            });
+        });
+        return deferred.promise;
     };
-
-    this.forgetPwd = function() {
-
-    };
+    //this.forgetPwd = function() {};
 }]);
 
 yibaoCommon.service('$smsCode', ['$q', '$data', '$getUrl', function($q, $data, $getUrl) {
     var self = this;
-    this.validateCode = function(vcode) {//注册获取验证码
+    this.validateCode = function(vcode) { //注册获取验证码
         console.log(vcode);
         var deferred = $q.defer();
-        var url = $getUrl('validateCode');  
+        var url = $getUrl('validateCode');
         var paras = {
             phoneNumber: vcode
         };
         $data.get('ajax', {
             url: url,
             method: 'POST',
-            data: paras 
+            data: paras
         }, true).then(function(res) {
             deferred.resolve(res.res.data);
         }, function(err) {

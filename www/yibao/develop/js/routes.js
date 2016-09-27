@@ -128,6 +128,15 @@ angular.module('routes', [])
                 }
             });
 
+        $stateProvider
+            .state('shoppingCart', {
+                url: '/shoppingCart',
+                templateProvider: loadTpl(['/html/cart/shoppingCart.html']),
+                resolve: {
+                    js: asyncLoad(['controller/cart/shoppingCart']),
+                    css: loadCss('/css/cart/shoppingCart.css')
+                }
+            });
 
 
 

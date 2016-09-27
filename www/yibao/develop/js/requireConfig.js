@@ -16,10 +16,9 @@ require.config({
         // 分组依赖
         'productService': '/js/service/product/productService',
         'productListService': '/js/service/product/productListService',
-        // 确认订单
-        'confirmOrderService': '/js/service/order/confirmOrderService',
-        // 忘记密码
-        'forgetPasswordService': '/js/service/user/forgetPasswordService'
+        'confirmOrderService': '/js/service/order/confirmOrderService',    // 确认订单
+        'forgetPasswordService': '/js/service/user/forgetPasswordService',   // 忘记密码
+        'shoppingCartService': '/js/service/cart/shoppingCartService'    // 购物车
     },
     shim: {
         'ionic': {
