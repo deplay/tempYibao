@@ -11,7 +11,7 @@ define(['yibao'], function(yibao) {
                     pageSize: pageSize
                 }
             }, true).then(function(res) {
-                deferred.resolve(res.res.data);
+                deferred.resolve(res.std.data);
             }, function(err) {
                 deferred.reject(err);
             });

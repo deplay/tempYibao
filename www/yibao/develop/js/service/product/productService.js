@@ -7,7 +7,7 @@ define(['yibao'], function(yibao) {
                 url: url,
                 method: 'GET'
             }, true).then(function(res) {
-                deferred.resolve(res.res.data);
+                deferred.resolve(res.std.data);
             }, function(err) {
                 deferred.reject(err);
             });

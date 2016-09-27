@@ -8,7 +8,7 @@ require.config({
         'angularLocalForage': '/js/lib/angularLocalForage.min',
         'photoswipe': '/js/lib/photoswipe.min',
         'photoswipeUI': '/js/lib/photoswipe-ui-default.min',
-        'angularPhotoswipe': '/js/lib/angular-photoswipe.min',
+        'angularPhotoswipe': '/js/lib/angular-photoswipe',
         'toaster': '/js/lib/toaster.min',
         'yibao': '/js/yibao',
         'yibao.common': '/js/yibao.common',
