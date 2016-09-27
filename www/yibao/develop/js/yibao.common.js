@@ -51,7 +51,7 @@ yibaoCommon.service('$data', ['$cacheFactory', '$localForage', '$q', '$http', fu
     var expires = 30 * 60 * 1000;
 
     // 要缓存的正则
-    // 首页，搜索列表，详情页，登录
+    // 首页，搜索列表，详情页
     var cacheMap = [
         /\/yxtws\/v2\/hxyxt\/b2b2c\/products\//
     ];
@@ -148,7 +148,7 @@ yibaoCommon.service('$user', ['$q', '$data', '$getUrl', function($q, $data, $get
         $data.get('ajax', {
             url: url,
             method: 'POST',
-            data: dataObj
+            data: dataObj//params
         }, true, postAction).then(function(res) {
             deferred.resolve(res);
         }, function(err) {
@@ -173,7 +173,21 @@ yibaoCommon.service('$user', ['$q', '$data', '$getUrl', function($q, $data, $get
         });
         return deferred.promise;
     };
+
+    this.register = function() {
+
+    };
+
+    this.forgetPwd = function() {
+
+    };
 }]);
+
+yibaoCommon.service('smsCode', ['$data', function($data) {
+
+
+}]);
+
 
 // 指令
 yibaoCommon.directive('myLoading', function() {

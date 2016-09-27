@@ -18,7 +18,6 @@ define(['yibao'], function(yibao) {
                     deferred.reject(err);
                 });
             })
-
             return deferred.promise;
         };
     }])
