@@ -15,11 +15,11 @@
             <div class="switchRow">
                 <div class="product" ng-class-even="'product2'" ng-repeat="(i,product) in products">
                     <div class="imagetextContainer">
-                        <div class="image" ui-sref="product({id:product.code})">
+                        <div class="image" ui-sref="product({code:product.code})">
                             <lazy-img lazy-src="{{product.images[0].url}}" alt="{{product.name}}" /></lazy-img>
                         </div>
                         <div class="text">
-                            <p class="productTitle" ui-sref="product({id:product.code})">{{product.name}}</p>
+                            <p class="productTitle" ui-sref="product({code:product.code})">{{product.name}}</p>
                             <p class="productDesc" ng-show="style.one">{{product.summary}}</p>
                             <p class="productPrice price">
                                 <span>{{product.price.formattedValue}}</span>

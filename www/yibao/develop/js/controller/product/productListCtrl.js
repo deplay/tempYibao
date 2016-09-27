@@ -56,7 +56,7 @@ define(['yibao', 'productListService'], function(yibao, productListService) {
                             $scope.hasData = true;
                         }
                         totalPages = res.pagination.totalPages; //该分类的总数据
-                        $scope.products = res.results
+                        $scope.products = res.results;
                     } else if ((totalPages - currentPage >= 1) && currentPage > 0) { //加载更多
                         console.log('分支2');
                         Array.prototype.push.apply($scope.products, res.results);

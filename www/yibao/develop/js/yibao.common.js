@@ -11,6 +11,7 @@ yibaoCommon.constant('DEBUG', true)
     .constant('URLMAP', {
         login: '/yxtws/oauth/token',
         productList: '/yxtws/v1/hxyxt/yinhai/',
+        product: '/yxtws/v1/hxyxt/yinhai/product/',
         validateCode: '/yxtws/v1/hxyxt/customers/smsValidateCode', //获取验证码
         getuserCode: '/yxtws/v1/hxyxt/passreset/request/staffyanzhengma', //员工密码找回获取验证码
         userSetpwd: '/yxtws/v1/hxyxt/passreset/request/staff', //员工密码修改
@@ -50,7 +51,7 @@ yibaoCommon.service('$verification', [function() {
         }
     }])
     // 数据服务
-yibaoCommon.service('$data', ['$cacheFactory', '$localForage', '$q', '$http', '$state', function($cacheFactory, $localForage, $q, $http, $state) {
+yibaoCommon.service('$data', ['$cacheFactory', '$localForage', '$q', '$http', '$state', 'toaster', function($cacheFactory, $localForage, $q, $http, $state, toaster) {
     // 配置
     // 有效期,单位毫秒
     var expires = 30 * 60 * 1000;
@@ -91,7 +92,7 @@ yibaoCommon.service('$data', ['$cacheFactory', '$localForage', '$q', '$http', '$
                     console.log('取新值');
                     $http(key).then(function(res) {
                         var storeData = {
-                            res: res,
+                            std: res,
                             expires: (new Date).getTime() + expires
                         };
                         (postAction || angular.noop)(self, storeData);
@@ -106,7 +107,8 @@ yibaoCommon.service('$data', ['$cacheFactory', '$localForage', '$q', '$http', '$
                         });
                     }, function(err) {
                         if (err.data.errors[0].type === 'AccessDeniedError') {
-                            $state.go('login');
+                            toaster.error('token无效');
+                            // $state.go('login');
                         }
                         console.log('内存和local无缓存且请求失败');
                     });
@@ -135,7 +137,7 @@ yibaoCommon.service('$data', ['$cacheFactory', '$localForage', '$q', '$http', '$
     };
 }]);
 
-yibaoCommon.service('$user', ['$q', '$data', '$getUrl', function($q, $data, $getUrl) {
+yibaoCommon.service('$user', ['$q', 'toaster', '$data', '$getUrl', function($q, toaster, $data, $getUrl) {
     var self = this;
     this.login = function(loginObj) {
         // 正式代码
@@ -170,14 +172,16 @@ yibaoCommon.service('$user', ['$q', '$data', '$getUrl', function($q, $data, $get
         $data.get('verification', 'hybrisToken').then(function(token) {
             console.log(token);
             if ((new Date).getTime() > token.expires) {
-                state.go('login');
+                toaster.error('token过期');
+                // state.go('login');
             } else {
                 // console.log('token有效');
             }
             deferred.resolve(token);
         }, function(err) {
             console.log(err);
-            state.go('login');
+            toaster.error('没有缓存好的token');
+            // state.go('login');
         });
         return deferred.promise;
     };

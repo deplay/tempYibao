@@ -1,5 +1,5 @@
 define(function() {
-    var yb = angular.module('yibao', ['ionic', 'LocalForageModule','toaster', 'lazyImg', 'yibaoCommon', 'routes']);
+    var yb = angular.module('yibao', ['ionic', 'ngPhotoswipe', 'LocalForageModule', 'toaster', 'lazyImg', 'yibaoCommon', 'routes']);
     yb.config(['$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$ionicConfigProvider', '$httpProvider', function($controllerProvider, $compileProvider, $filterProvider, $provide, $ionicConfigProvider, $httpProvider) {
         $httpProvider.defaults.cache = false;
         yb.controller = $controllerProvider.register;

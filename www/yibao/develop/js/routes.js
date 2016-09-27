@@ -68,7 +68,15 @@ angular.module('routes', [])
             }];
         }
 
-
+        $stateProvider
+            .state('product', {
+                url: '/product/:code',
+                templateProvider: loadTpl(['/html/product/product.html']),
+                resolve: {
+                    js: asyncLoad(['controller/product/productCtrl']),
+                    css: loadCss('/css/product/product.css')
+                }
+            });
 
         $stateProvider
             .state('productList', {
@@ -108,7 +116,7 @@ angular.module('routes', [])
                     js: asyncLoad(['controller/user/forgetPassword']),
                     css: loadCss('\\css\\user\\forgetPassword.css')
                 }
-            });    
+            });
 
         $stateProvider
             .state('confirmOrder', {
