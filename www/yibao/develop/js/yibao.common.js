@@ -10,7 +10,12 @@ yibaoCommon.constant('DEBUG', true)
     })
     .constant('URLMAP', {
         login: '/yxtws/oauth/token',
-        productList: '/yxtws/v2/hxyxt/b2b2c/products/'
+        productList: '/yxtws/v2/hxyxt/b2b2c/products/',
+        validateCode: '/yxtws/v1/hxyxt/customers/smsValidateCode', //获取验证码
+        getuserCode: '/yxtws/v1/hxyxt/passreset/request/staffyanzhengma', //员工密码找回获取验证码
+        userSetpwd: '/yxtws/v1/hxyxt/passreset/request/staff', //员工密码修改
+        getvipCode: '/yxtws/v1/hxyxt/passreset/sendmassage', //会员密码找回获取验证码
+        vipSetpwd: '/yxtws/v1/hxyxt/passreset/resetpass', //会员密码修改
     });
 // 服务
 yibaoCommon.service('$getUrl', ['DEBUG', 'SERVER', 'URLMAP', function(DEBUG, SERVER, URLMAP) {

@@ -70,3 +70,8 @@
 .b1 {
     color: #ea4040;
 }
+
+.checkbox-balanced input:checked+.checkbox-icon:before, .checkbox-balanced input:checked:before {
+    background: #298784 !important;
+    border-color: #298784 !important;
+}

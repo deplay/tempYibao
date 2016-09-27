@@ -1,9 +1,22 @@
-define(['yibao'], function(yibao) {
+define(['yibao', 'forgetPasswordService'], function(yibao, forgetPasswordService) {
 
-    yibao.controller('forgetPwdCtrl', ['$scope',
-        function($scope) {
-            console.log('忘记密码页面初始化');
+    yibao.controller('forgetPwdCtrl', ['$scope','$ionicSlideBoxDelegate', function($scope,$ionicSlideBoxDelegate) {
+        console.log('忘记密码页面初始化');
+        $scope.tabs = [{ tag: '一心堂员工' }, { tag: '一心堂会员' }]
+        $scope.tabVisible = true;
+        $scope.tabclick = function(i) {
+            $ionicSlideBoxDelegate.slide(i);
         }
-    ]);
-    console.log('大幅度苟富贵点发送执行');
+        $scope.slideHasChanged = function(i) {
+            $scope.tabVisible = !$scope.tabVisible;
+        }
+    }]);
+
+    yibao.controller('frguserCtrl', ['$scope', function($scope) {
+
+    }]);
+
+    yibao.controller('frgvipCtrl', ['$scope', function($scope) {
+
+    }]);
 });
