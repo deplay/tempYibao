@@ -1,5 +1,7 @@
 define(['yibao'], function(yibao) {
     yibao.controller('loginCtrl', ['$scope', '$timeout', '$state', '$ionicHistory', 'toaster', '$verification', '$user', function($scope, $timeout, $state, $ionicHistory, toaster, $verification, $user) {
+        var self = this; //提供引用
+
         $scope.loginObj = {};
 
         // 调试，后期删除
@@ -28,10 +30,11 @@ define(['yibao'], function(yibao) {
 
 
         function getInputError() {
-            if (!this.myForm.$invalid) return false;
-            var errorMsg = $verification.getInvalidMsg(this.myForm, invalidMsg);
+            if (!self.myForm.$invalid) return false;
+            var errorMsg = $verification.getInvalidMsg(self.myForm, invalidMsg);
             return errorMsg;
         }
+
         $scope.login = function() {
             var errorMsg;
             if (errorMsg = getInputError()) {
@@ -39,9 +42,6 @@ define(['yibao'], function(yibao) {
                 return;
             }
             showLoading();
-
-            console.log($user);
-
             $user.login($scope.loginObj)
                 .then(function(res) {
                     $timeout(function() {
