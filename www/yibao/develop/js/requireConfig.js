@@ -6,11 +6,15 @@ require.config({
         'lazyImg': '/js/lib/lazyImg',
         'localforage': '/js/lib/localforage.min',
         'angularLocalForage': '/js/lib/angularLocalForage.min',
+        'photoswipe': '/js/lib/photoswipe.min',
+        'photoswipeUI': '/js/lib/photoswipe-ui-default.min',
+        'angularPhotoswipe': '/js/lib/angular-photoswipe.min',
         'toaster': '/js/lib/toaster.min',
         'yibao': '/js/yibao',
         'yibao.common': '/js/yibao.common',
         'routes': '/js/routes',
         // 分组依赖
+        'productService': '/js/service/product/productService',
         'productListService': '/js/service/product/productListService',
         // 确认订单
         'confirmOrderService': '/js/service/order/confirmOrderService',
@@ -22,10 +26,16 @@ require.config({
             exports: 'angular'
         },
         'yibao': {
-            deps: ['ionic', 'toaster', 'yibao.common', 'routes', 'lazyImg', 'angularLocalForage']
+            deps: ['ionic', 'toaster', 'yibao.common', 'routes', 'lazyImg', 'angularLocalForage', 'angularPhotoswipe']
         },
         'angularLocalForage': {
             deps: ['ionic', 'localforage']
+        },
+        'photoswipeUI': {
+            deps: ['photoswipe']
+        },
+        'angularPhotoswipe': {
+            deps: ['ionic', 'photoswipeUI']
         },
         'toaster': {
             deps: ['ionic']

@@ -68,12 +68,12 @@ angular.module('routes', [])
             }];
         }
         $stateProvider
-            .state('productList', {
-                url: '/productList',
-                templateProvider: loadTpl(['/html/product/productList.html']),
+            .state('product', {
+                url: '/product/:code',
+                templateProvider: loadTpl(['/html/product/product.html']),
                 resolve: {
-                    js: asyncLoad(['controller/product/productListCtrl']),
-                    css: loadCss('/css/product/productList.css')
+                    js: asyncLoad(['controller/product/productCtrl']),
+                    css: loadCss('/css/product/product.css')
                 }
             });
 
