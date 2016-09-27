@@ -6,6 +6,7 @@ require.config({
         'lazyImg': '/js/lib/lazyImg',
         'localforage': '/js/lib/localforage.min',
         'angularLocalForage': '/js/lib/angularLocalForage.min',
+        'toaster': '/js/lib/toaster.min',
         'yibao': '/js/yibao',
         'yibao.common': '/js/yibao.common',
         'routes': '/js/routes',
@@ -19,10 +20,13 @@ require.config({
             exports: 'angular'
         },
         'yibao': {
-            deps: ['ionic', 'yibao.common', 'routes', 'lazyImg', 'angularLocalForage']
+            deps: ['ionic', 'toaster', 'yibao.common', 'routes', 'lazyImg', 'angularLocalForage']
         },
         'angularLocalForage': {
             deps: ['ionic', 'localforage']
+        },
+        'toaster': {
+            deps: ['ionic']
         },
         'lazyImg': {
             deps: ['ionic']

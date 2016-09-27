@@ -11,8 +11,8 @@ yibaoCommon.constant('DEBUG', true)
     .constant('URLMAP', {
         login: '/yxtws/oauth/token',
         productList: '/yxtws/v2/hxyxt/b2b2c/products/'
-    })
-    // 服务
+    });
+// 服务
 yibaoCommon.service('$getUrl', ['DEBUG', 'SERVER', 'URLMAP', function(DEBUG, SERVER, URLMAP) {
     return function(key) {
         var url = URLMAP[key];
@@ -25,7 +25,26 @@ yibaoCommon.service('$getUrl', ['DEBUG', 'SERVER', 'URLMAP', function(DEBUG, SER
         return fullUrl;
     };
 }]);
-// 数据服务
+
+yibaoCommon.service('$verification', [function() {
+        this.getInvalidMsg = function(form, invalidMsg) {
+            for (input in invalidMsg) {
+                if (form[input].$valid) continue;
+                var errors = invalidMsg[input];
+                if (angular.isObject(errors)) {
+                    for (error in errors) {
+                        if (form[input].$error[error]) {
+                            return errors[error];
+                        }
+                    }
+                    return input + ' error!';
+                } else {
+                    return errors;
+                }
+            }
+        }
+    }])
+    // 数据服务
 yibaoCommon.service('$data', ['$cacheFactory', '$localForage', '$q', '$http', function($cacheFactory, $localForage, $q, $http) {
     // 配置
     // 有效期,单位毫秒
@@ -132,6 +151,8 @@ yibaoCommon.service('$user', ['$q', '$data', '$getUrl', function($q, $data, $get
             data: dataObj
         }, true, postAction).then(function(res) {
             deferred.resolve(res);
+        }, function(err) {
+            deferred.reject(err);
         });
         return deferred.promise;
     };
@@ -139,9 +160,10 @@ yibaoCommon.service('$user', ['$q', '$data', '$getUrl', function($q, $data, $get
     this.getToken = function() {
         var deferred = $q.defer();
         $data.get('verification', 'hybrisToken').then(function(token) {
+            console.log(token);
             if ((new Date).getTime() > token.expires) {
                 // state.go('login');
-            }else{
+            } else {
                 // console.log('token有效');
             }
             deferred.resolve(token);
@@ -151,9 +173,6 @@ yibaoCommon.service('$user', ['$q', '$data', '$getUrl', function($q, $data, $get
         });
         return deferred.promise;
     };
-
-
-
 }]);
 
 // 指令
@@ -199,4 +218,15 @@ yibaoCommon.directive('myGoTop', function($compile, $timeout) {
             }
         }
     };
-})
+});
+yibaoCommon.directive("exposure", [
+    function() {
+        return {
+            require: "^ngController",
+            link: function(scope, ele, attrs, ctrls) {
+                var name = attrs.name;
+                ctrls[name] = scope[name];
+            }
+        };
+    }
+])

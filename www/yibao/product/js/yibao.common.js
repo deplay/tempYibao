@@ -18,8 +18,9 @@ return value}}}]);yibaoCommon.service("$user",["$q","$data","$getUrl",function($
 this.login=function(loginObj){var deferred=$q.defer();var url=$getUrl("login");var dataObj={client_id:"mobile_android",client_secret:"secret",grant_type:"password"};
 angular.extend(dataObj,loginObj);var postAction=function($data,storeData){$data.set("verification","hybrisToken",{token:storeData.res.data.access_token,expires:(new Date()).getTime()+storeData.res.data.expires_in*1000})
 };$data.get("ajax",{url:url,method:"POST",data:dataObj},true,postAction).then(function(res){deferred.resolve(res)
-});return deferred.promise};this.getToken=function(){var deferred=$q.defer();$data.get("verification","hybrisToken").then(function(token){if((new Date).getTime()>token.expires){}else{}deferred.resolve(token)
-},function(err){console.log(err)});return deferred.promise}}]);yibaoCommon.directive("myLoading",function(){return{restrict:"E",replace:true,template:'<div class="myloading" ng-show="loading"><div class="loading-center"><div class="loading-center-absolute"><i class="ion-heart"></i></div></div></div>'}
+});return deferred.promise};this.getToken=function(){var deferred=$q.defer();$data.get("verification","hybrisToken").then(function(token){console.log(token);
+if((new Date).getTime()>token.expires){}else{}deferred.resolve(token)},function(err){console.log(err)
+});return deferred.promise}}]);yibaoCommon.directive("myLoading",function(){return{restrict:"E",replace:true,template:'<div class="myloading" ng-show="loading"><div class="loading-center"><div class="loading-center-absolute"><i class="ion-heart"></i></div></div></div>'}
 });yibaoCommon.directive("myGoTop",function($compile,$timeout){return{scope:{},restrict:"E",require:"^$ionicScroll",link:function($scope,ele,attrs,controller){$scope.show=false;
 var eleGoTop='<div class="gotop" ng-click="gotop()" ng-show="show"><i class="icon ion-arrow-up-c"></i></div>';
 if(!attrs.hideCart){eleGoTop+='<div class="gocart" ng-click="$root.goTabs(2);"><i class="ion-ios-cart" "></i></div>'
