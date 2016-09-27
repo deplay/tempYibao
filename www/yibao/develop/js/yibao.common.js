@@ -10,7 +10,7 @@ yibaoCommon.constant('DEBUG', true)
     })
     .constant('URLMAP', {
         login: '/yxtws/oauth/token',
-        productList: '/yxtws/v2/hxyxt/b2b2c/products/'
+        productList: '/yxtws/v1/hxyxt/yinhai/'
     });
 // 服务
 yibaoCommon.service('$getUrl', ['DEBUG', 'SERVER', 'URLMAP', function(DEBUG, SERVER, URLMAP) {
@@ -45,7 +45,7 @@ yibaoCommon.service('$verification', [function() {
         }
     }])
     // 数据服务
-yibaoCommon.service('$data', ['$cacheFactory', '$localForage', '$q', '$http', function($cacheFactory, $localForage, $q, $http) {
+yibaoCommon.service('$data', ['$cacheFactory', '$localForage', '$q', '$http', '$state', function($cacheFactory, $localForage, $q, $http, $state) {
     // 配置
     // 有效期,单位毫秒
     var expires = 30 * 60 * 1000;
@@ -100,6 +100,9 @@ yibaoCommon.service('$data', ['$cacheFactory', '$localForage', '$q', '$http', fu
                             }
                         });
                     }, function(err) {
+                        if (err.data.errors[0].type === 'AccessDeniedError') {
+                            $state.go('login');
+                        }
                         console.log('内存和local无缓存且请求失败');
                     });
                 }
@@ -162,14 +165,14 @@ yibaoCommon.service('$user', ['$q', '$data', '$getUrl', function($q, $data, $get
         $data.get('verification', 'hybrisToken').then(function(token) {
             console.log(token);
             if ((new Date).getTime() > token.expires) {
-                // state.go('login');
+                state.go('login');
             } else {
                 // console.log('token有效');
             }
             deferred.resolve(token);
         }, function(err) {
             console.log(err);
-            // state.go('login');
+            state.go('login');
         });
         return deferred.promise;
     };
@@ -225,7 +228,6 @@ yibaoCommon.directive("exposureForm", [
             require: "^ngController",
             link: function(scope, ele, attrs, ctrls) {
                 var name = attrs.name;
-                console.log(scope[name]);
                 ctrls[name] = scope[name];
             }
         };

@@ -70,40 +70,40 @@ angular.module('routes', [])
         $stateProvider
             .state('productList', {
                 url: '/productList',
-                templateProvider: loadTpl(['\\html\\product\\productList.html']),
+                templateProvider: loadTpl(['/html/product/productList.html']),
                 resolve: {
                     js: asyncLoad(['controller/product/productListCtrl']),
-                    css: loadCss('\\css\\product\\productList.css')
+                    css: loadCss('/css/product/productList.css')
                 }
             });
 
         $stateProvider
             .state('login', {
                 url: '/login',
-                templateProvider: loadTpl(['\\html\\user\\login.html']),
+                templateProvider: loadTpl(['/html/user/login.html']),
                 resolve: {
                     js: asyncLoad(['controller/user/login']),
-                    css: loadCss('\\css\\user\\login.css')
+                    css: loadCss('/css/user/login.css')
                 }
             });
 
         $stateProvider
             .state('register', {
                 url: '/register',
-                templateProvider: loadTpl(['\\html\\user\\register.html']),
+                templateProvider: loadTpl(['/html/user/register.html']),
                 resolve: {
                     js: asyncLoad(['controller/user/register']),
-                    css: loadCss('\\css\\user\\register.css')
+                    css: loadCss('/css/user/register.css')
                 }
             });
 
         $stateProvider
             .state('confirmOrder', {
                 url: '/confirmOrder',
-                templateProvider: loadTpl(['\\html\\order\\confirmOrder.html']),
+                templateProvider: loadTpl(['/html/order/confirmOrder.html']),
                 resolve: {
                     js: asyncLoad(['controller/order/confirmOrder']),
-                    css: loadCss('\\css\\order\\confirmOrder.css')
+                    css: loadCss('/css/order/confirmOrder.css')
                 }
             });
 

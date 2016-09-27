@@ -15,9 +15,10 @@ define(['yibao', 'productListService'], function(yibao, productListService) {
         // 变量控制
         var shopCode = 'A003';
         var currentPage = 0;
-        var pageSize = 20; //搜索结果排序方式
+        var pageSize = 10; //搜索结果排序方式
+        var totalPages;
         $scope.hasData = true;
-        $scope.moredata = false;
+        $scope.moredata = true;
         // 样式控制初始化
         $scope.style = {
             one: false,
@@ -26,20 +27,41 @@ define(['yibao', 'productListService'], function(yibao, productListService) {
         };
         $scope.doRefresh = function() {
             currentPage = 0;
-            loadData('reload');
-        }
+            loadData();
+        };
 
-        function loadData(mode) {
+        $scope.loadMore = function() {
+            if (!$scope.moredata) return;
+            currentPage++;
+            loadData();
+        };
+
+        function loadData() {
+            //当前页等于总页数时，不请求数据；
+            if (totalPages - currentPage === 0) {
+                $scope.moredata = false;
+                return
+            }
             showLoading();
             $productListService
                 .loadData(shopCode, currentPage, pageSize)
                 .then(function(res) {
-                    if (mode === 'append') {
-                        angular.forEach(res.products, function(v, k, o) {
-                            $scope.products.push(v);
-                        });
-                    } else {
-                        $scope.products = res.products;
+                    console.log('标记');
+
+                    if (currentPage === 0) { //当前页面序号
+                        console.log('分支1');
+                        if (res.results.length === 0) {
+                            $scope.hasData = false;
+                        } else {
+                            $scope.hasData = true;
+                        }
+                        totalPages = res.pagination.totalPages; //该分类的总数据
+                        $scope.products = res.results
+                    } else if ((totalPages - currentPage >= 1) && currentPage > 0) { //加载更多
+                        console.log('分支2');
+                        Array.prototype.push.apply($scope.products, res.results);
+                    } else { //没有更多数据
+                        $scope.moredata = false;
                     }
                     hideLoading();
                 }, function(err) {
