@@ -219,12 +219,13 @@ yibaoCommon.directive('myGoTop', function($compile, $timeout) {
         }
     };
 });
-yibaoCommon.directive("exposure", [
+yibaoCommon.directive("exposureForm", [
     function() {
         return {
             require: "^ngController",
             link: function(scope, ele, attrs, ctrls) {
                 var name = attrs.name;
+                console.log(scope[name]);
                 ctrls[name] = scope[name];
             }
         };
