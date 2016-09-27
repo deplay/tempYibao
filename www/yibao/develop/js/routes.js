@@ -98,6 +98,16 @@ angular.module('routes', [])
             });
 
         $stateProvider
+            .state('forgetPassword', {
+                url: '/forgetPassword',
+                templateProvider: loadTpl(['\\html\\user\\forgetPassword.html']),
+                resolve: {
+                    js: asyncLoad(['controller/user/forgetPassword']),
+                    css: loadCss('\\css\\user\\forgetPassword.css')
+                }
+            });    
+
+        $stateProvider
             .state('confirmOrder', {
                 url: '/confirmOrder',
                 templateProvider: loadTpl(['\\html\\order\\confirmOrder.html']),
