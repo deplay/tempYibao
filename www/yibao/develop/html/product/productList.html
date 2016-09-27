@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="noMore" ng-if="!moredata">亲,没有更多了哦！</div>
-        <ion-infinite-scroll ng-if="moredata" immediate-check="false" on-infinite="loadMore()" distance="50"></ion-infinite-scroll>
+        <ion-infinite-scroll ng-if="moredata" immediate-check="false" on-infinite="loadMore()" distance="10"></ion-infinite-scroll>
     </ion-content>
     <my-loading></my-loading>
 </ion-view>
