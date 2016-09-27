@@ -11,7 +11,9 @@ require.config({
         'yibao.common': '/js/yibao.common',
         'routes': '/js/routes',
         // 分组依赖
-        'productListService': '/js/service/product/productListService'
+        'productListService': '/js/service/product/productListService',
+        // 确认订单
+        'confirmOrderService': '/js/service/order/confirmOrderService'
     },
     shim: {
         'ionic': {

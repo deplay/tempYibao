@@ -1,0 +1,59 @@
+<ion-view title="确认订单" ng-controller="confirmOrderCtrl">
+    <ion-content padding="true" class="confirmOrder">
+        <my-go-top hide-cart="false"></my-go-top>
+        <div class="confirmOrder-shop">
+            <div class="col div_activity_title">一心堂</div>
+            <div class="list confirm-list">
+                <a class="item item-thumbnail-left">
+                    <img ng-src="http://image.hxyxt.com/medias/sys_master/images/images/h1a/h31/9377225408542.jpg">
+                    <div class="conOrder-title">【一心到家】新鲜蔬菜 方便菜 面姜一份 精选新鲜生姜 饱满厚实 辛辣味浓</div>
+                    <!-- <p>{{v.name}}</p> -->
+                    <div class="conOrder-price">
+                        <span class="price">  
+                            ¥2.50
+                        </span>
+                        <div class="pprice">¥5.0</div>
+                        <div class="quant">x5</div>
+                    </div>
+                </a>
+                <a class="item item-thumbnail-left">
+                    <img ng-src="http://image.hxyxt.com/medias/sys_master/images/images/hc4/hd0/9377224032286.jpg">
+                    <div class="conOrder-title">【一心到家】新鲜蔬菜 方便菜 西芹一份 精选新鲜西芹 气味清新 脆嫩爽口</div>
+                    <!-- <p>{{v.name}}</p> -->
+                    <div class="conOrder-price">
+                        <span class="price">  
+                            ¥2.50
+                        </span>
+                        <div class="pprice">¥5.0</div>
+                        <div class="quant">x5</div>
+                    </div>
+                </a>
+                <a class="item item-thumbnail-left">
+                    <img ng-src="http://image.hxyxt.com/medias/sys_master/images/images/h10/h2f/9377170358302.jpg">
+                    <div class="conOrder-title">【一心到家】新鲜蔬菜 方便菜 豇豆一份 精选新鲜豇豆 饱满均匀 口感脆甜</div>
+                    <!-- <p>{{v.name}}</p> -->
+                    <div class="conOrder-price">
+                        <span class="price">  
+                            ¥2.50
+                        </span>
+                        <div class="pprice">¥5.0</div>
+                        <div class="quant">x5</div>
+                    </div>
+                </a>
+            </div>
+            <div class="row sub-total">
+                <div class="col col-35 ">3件商品</div>
+                <div class="col delivery-method assertive" ng-show="info.deliveryCost==0">免邮</div>
+                <div class="col delivery-method assertive" ng-show="info.deliveryCost>0">邮费:￥10}</div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="bar-stable">
+        <div class="row">
+            <div class="col assertive confirm-order-total-price">合计:￥37.5</div>
+            <div class="col col-25 nopadding confirm_one">
+                <button class="button button-assertive button-full ion-checkmark" ng-click="placeOrder()">确认</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>
