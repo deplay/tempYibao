@@ -3,15 +3,6 @@ define(['yibao'], function(yibao) {
         this.loadData = function(shopCode, currentPage, pageSize) {
             var deferred = $q.defer();
             var url = $getUrl('productList') + shopCode;
-            console.log(url);
-
-            // 备用，登录
-            // var loginObj = {
-            //     username: '700000000',
-            //     password: '123456'
-            // };
-            // $user.login(loginObj);
-
             $user.getToken().then(function(tokenObj) {
                 $data.get('ajax', {
                     url: url,

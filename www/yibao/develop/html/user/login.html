@@ -1,16 +1,16 @@
 <ion-view title="登录" hide-back-button="false" ng-controller="loginCtrl">
     <ion-content padding="true" scroll="true" class="has-header">
-        <form class="list padding"  name="myForm">
+        <form class="list padding" name="myForm" exposure>
             <ion-list>
                 <label class="item item-input input-text">
                     <i class="icon ion-person user-ion"></i>
-                    <input name="username" type="text" ng-model="user.username" required  placeholder="请输入用户名">
+                    <input name="username" type="text" ng-model="loginObj.username" required  placeholder="请输入用户名">
                 </label>
                 <label class="item item-input input-text">
                     <i class="icon ion-locked user-ion"></i>
-                    <input name="password" type="password" ng-model="user.password" required minlength="4" maxlength="16"  placeholder="请输入密码">
+                    <input name="password" type="password" ng-model="loginObj.password" required minlength="4" maxlength="16"  placeholder="请输入密码">
                 </label>
-                <button class="button button-full ion-android-done btn-login button-yxdj" ng-click="login()">登录</button>
+                <button class="button button-full ion-android-done btn-login button-balanced" ng-click="login()">登录</button>
                 <a ui-sref="forgetpwd" class="button button-clear ">忘记密码</a>
                 <a ui-sref="reg" class="button button-clear btn-reg">新用户注册</a>
             </ion-list>
