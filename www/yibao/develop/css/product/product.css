@@ -1,0 +1,65 @@
+ion-content[delegate-handle=one] {
+    background-color: #fff;
+}
+
+.sliderPlaceHolder {
+    height: 320px;
+    width: 100%;
+}
+
+.sliderCon {
+    height: 320px;
+    width: 100%;
+}
+
+.sliderCon img {
+    width: 100%;
+    height: 100%;
+}
+
+.margin10px {
+    margin: 10px;
+}
+
+.productDesc {
+    border-bottom: 1px dashed #ccc;
+}
+
+.productInfoCon * {
+    font-family: Microsoft Yahei;
+}
+
+.col-30 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 30%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 30%;
+    -ms-flex: 0 0 30%;
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+
+.col-70 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 70%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 70%;
+    -ms-flex: 0 0 70%;
+    flex: 0 0 70%;
+    max-width: 70%;
+}
+
+.getDetailPart2 {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    background: #eee;
+    margin-bottom: 0!important;
+}
+
+.csphone {
+    font-weight: bolder;
+    font-size: 15px;
+    color: #ef473a;
+}

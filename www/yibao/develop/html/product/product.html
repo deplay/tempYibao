@@ -1,12 +1,33 @@
 <ion-view hide-nav-bar="true" ng-controller="productCtrl as ctrl">
-    <my-go-top></my-go-top>
-    <!-- <ion-slide-box on-slide-changed="slideHasChanged($index)" class="preview" ratio-height="1">
-        <ion-slide ng-repeat="url in productDetail.images | productImgsFilter" repeat-Finish="repateOver()">
-            <figure itemscope="" class="swiper-slide swiper-slide-active">
-                <a href="{{url}}" itemprop="contentUrl">
-                    <img ng-src="{{cImg(url,1,70)}}" itemprop="thumbnail" img-size-init/>
-                </a>
-            </figure>
-        </ion-slide>
-    </ion-slide-box> -->
+    <ion-content has-bouncing="true" scroll="true" delegate-handle="one">
+        <my-go-top></my-go-top>
+        <div class="sliderPlaceHolder">
+            <yibao-slider></yibao-slider>
+        </div>
+        <div class="productInfoCon">
+            <h5 class="margin10px">{{ctrl.details.name}}</h5>
+            <!-- 数量选择 -->
+            <number-input ng-model="number" max="99" min="0" step="1" start="0"></number-input>
+            <!-- 售后服务 -->
+            <div class="productDesc">
+                <div class="row">
+                    <div class="col col-30">温馨提示：</div>
+                    <div class="col col-70">正品保证，售后无忧</div>
+                </div>
+                <div class="row">
+                    <div class="col col-30">商品提供：</div>
+                    <div class="col col-70">本商品由 {{ctrl.details.yxtShopData.shopName}} 提供</div>
+                </div>
+                <div class="row">
+                    <div class="col col-30">提供服务：</div>
+                    <div class="col col-70">昆明绕城以内及呈贡区域当天下单，次日送达。</div>
+                </div>
+                <div class="row">
+                    <div class="col col-30">客服电话：</div>
+                    <div class="col col-70 csphone assertive">4009 889 889</div>
+                </div>
+            </div>
+            <p class="getDetailPart2" ng-if="!loading">上滑加载商品详情</p>
+        </div>
+    </ion-content>
 </ion-view>
